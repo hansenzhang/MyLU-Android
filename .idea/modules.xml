@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MyLU/MyLU.iml" filepath="$PROJECT_DIR$/MyLU/MyLU.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MyLU-Android.iml" filepath="$PROJECT_DIR$/MyLU-Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/MyLUProject.iml" filepath="$PROJECT_DIR$/MyLUProject.iml" />
     </modules>
   </component>

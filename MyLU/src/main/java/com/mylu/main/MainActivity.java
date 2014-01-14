@@ -17,7 +17,7 @@ import android.widget.ListView;
  */
 public class MainActivity extends FragmentActivity {
     private String[] mDrawerItems = {"Item 1", "Item 2", "Item 3"};
-    private String[] mDrawerFragmentId = {"com.mylu.main.ItemListActivity", "", ""};
+    private String[] mDrawerFragmentId = {"com.mylu.main.FragmentOne", "", ""};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
