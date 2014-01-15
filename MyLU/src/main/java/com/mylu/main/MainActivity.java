@@ -1,5 +1,6 @@
 package com.mylu.main;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 
 import android.support.v4.app.FragmentTransaction;
@@ -17,7 +18,7 @@ import android.widget.ListView;
  */
 public class MainActivity extends FragmentActivity {
     private String[] mDrawerItems = {"Item 1", "Item 2", "Item 3"};
-    private String[] mDrawerFragmentId = {"com.mylu.main.FragmentOne", "", ""};
+    private String[] mDrawerFragmentId = {"com.mylu.main.FragmentOne", "com.mylu.main.AddEvent", ""};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +37,11 @@ public class MainActivity extends FragmentActivity {
                     @Override
                     public void onDrawerClosed(View drawerView){
                         super.onDrawerClosed(drawerView);
-                        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-                        tx.replace(R.id.content_frame, Fragment.instantiate(MainActivity.this, mDrawerFragmentId[pos]));
-                        tx.commit();
+                        Intent intent = new Intent(getBaseContext(), AddEvent.class);
+                        startActivity(intent);
+                        //FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+                        //tx.replace(R.id.content_frame, Fragment.instantiate(MainActivity.this, mDrawerFragmentId[pos]));
+                        //tx.commit();
                     }
                 });
                 drawer.closeDrawer(navList);

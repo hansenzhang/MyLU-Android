@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="15dp"
+    android:paddingLeft="20dp"
+    android:paddingRight="30dp"
+    android:weightSum="6">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_eventName"
+        android:text=""
+        android:hint="Event name"
+        android:layout_weight="0.2"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_eventDetails"
+        android:hint="Details"
+        android:layout_weight="0.2"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:hint="Location"
+        android:id="@+id/editText_eventLocation"
+        android:layout_weight="0.2"/>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:weightSum="1">
+
+    <Spinner
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_date"
+        android:spinnerMode="dialog"
+        android:layout_weight="1"/>
+
+    <Spinner
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner_time"
+        android:spinnerMode="dialog"
+        android:layout_weight="1"/>
+    </LinearLayout>
+
+</LinearLayout>
