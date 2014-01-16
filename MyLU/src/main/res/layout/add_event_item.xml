@@ -37,19 +37,25 @@
         android:layout_width="fill_parent"
         android:weightSum="1">
 
-    <Spinner
+    <Button
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:id="@+id/spinner_date"
         android:spinnerMode="dialog"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:text="Today"
+        android:onClick="showDatePickerDialog"
+        style="?android:attr/spinnerStyle"/>
 
-    <Spinner
+    <Button
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:id="@+id/spinner_time"
         android:spinnerMode="dialog"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:text="Time"
+        android:onClick="showTimePickerDialog"
+        style="?android:attr/spinnerStyle"/>
     </LinearLayout>
 
 </LinearLayout>
