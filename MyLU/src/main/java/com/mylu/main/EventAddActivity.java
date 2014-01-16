@@ -25,6 +25,8 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
@@ -81,7 +83,7 @@ public class EventAddActivity extends FragmentActivity implements JSONParser.JSO
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_submit:
-                //submitForm();
+                submitForm();
                 return true; //TODO: this should throw an error (or alert) if fails...
             default:
                 return super.onOptionsItemSelected(item);
@@ -91,14 +93,23 @@ public class EventAddActivity extends FragmentActivity implements JSONParser.JSO
 
     private void submitForm() {
         JSONParser parser = new JSONParser();
-        String url = "http://mylu.herokuapp.com/api/v1/events?";
+        String base = "http://mylu.herokuapp.com/api/v1/events?";
         //TODO: NUll check all of these fields, throw warnings somehow.
-        String title = mEventName.getText().toString();
-        String location = mEventLocation.getText().toString();
-        String author = "Temp User";
-        String email = "temp@lehigh.edu";
-        String date = new DateTime(mYear, mMonth, mDay, mHour, mMinute).toDateTimeISO().toString();
-        parser.execute(url + title + location + author + email + date); // Execute will run async
+        String title = null;
+        String location = null;
+        String description = null;
+        try {
+            title = "title=" + URLEncoder.encode(mEventName.getText().toString(), "UTF-8");
+            location = "&location=" + URLEncoder.encode(mEventLocation.getText().toString(), "UTF-8");
+            description = "&description=" + URLEncoder.encode(mEventDetails.getText().toString(), "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        String author = "&authorName=TempUser";
+        String email = "&authorEmail=temp@lehigh.edu";
+        String date = "&startDate=" +  new DateTime(mYear, mMonth, mDay, mHour, mMinute).toDateTimeISO().toString();
+        String url = base + title + location + author + email + date + description;
+        parser.execute(url); // Execute will run async
         //parser.doInBackground(url);
 
 
@@ -113,14 +124,14 @@ public class EventAddActivity extends FragmentActivity implements JSONParser.JSO
     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
         mDateSpinner.setText(new DateFormatSymbols().getShortMonths()[month] + " " + day + ", " + year);
         mYear = year;
-        mMonth = month;
+        mMonth = month + 1;
         mDay = day;
     }
 
     @Override
     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
         DateTimeFormatter fmt = DateTimeFormat.forPattern("h:mm a");
-        mTimeSpinner.setText(fmt.print(new DateTime(1, 1, 1, hour, minute))); // make am/pm in here somewhere
+        mTimeSpinner.setText(fmt.print(new DateTime(1, 1, 1, hour, minute)));
         mHour = hour;
         mMinute = minute;
     }
