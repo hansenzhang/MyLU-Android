@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
 import com.mylu.main.dummy.DummyContent;
 import com.mylu.util.JSONParser;
@@ -16,6 +18,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * A list fragment representing a list of Items. This fragment
@@ -51,12 +54,29 @@ public class EventListFragment extends ListFragment implements JSONParser.JSONPa
      */
     @Override
     public void showList(JSONObject result) {
-        ArrayList<HashMap<String, String>> eventList = new ArrayList<HashMap<String, String>>();
+        ArrayList<HashMap<String, Object>> eventList = new ArrayList<HashMap<String, Object>>();
         try {
             JSONArray events = result.getJSONArray("events");
+            for (int i = 0; i < events.length(); i++) {
+                HashMap<String, Object> map = new HashMap<String, Object>();
+                JSONObject obj = events.getJSONObject(i);
+                Iterator keys = obj.keys();
+                while (keys.hasNext()){
+                    String key = (String) keys.next();
+                    map.put(key, obj.get(key));
+                }
+                eventList.add(map);
+            }
         } catch (JSONException e) {
 
         }
+
+        ListAdapter adapter = new SimpleAdapter(getActivity(), eventList,
+                R.layout.event_item_list,
+                new String[] {},
+                new int[] {}
+                );
+        setListAdapter(adapter);
     }
 
     /**
