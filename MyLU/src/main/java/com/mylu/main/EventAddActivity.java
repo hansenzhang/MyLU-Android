@@ -4,31 +4,28 @@ import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
+
+import com.mylu.util.DatePickerFragment;
+import com.mylu.util.JSONParser;
+import com.mylu.util.TimePickerFragment;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DateFormatSymbols;
-import java.util.Calendar;
 
 /**
  * Created by Hansen on 1/14/14.
@@ -111,13 +108,11 @@ public class EventAddActivity extends FragmentActivity implements JSONParser.JSO
         String url = base + title + location + author + email + date + description;
         parser.execute(url); // Execute will run async
         //parser.doInBackground(url);
-
-
     }
 
     @Override
     public void showList(JSONObject result) {
-
+        //TODO: This should return success of POST and throw errors accordingly
     }
 
     @Override

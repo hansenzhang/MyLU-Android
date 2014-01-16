@@ -18,7 +18,7 @@ import android.widget.ListView;
  */
 public class MainActivity extends FragmentActivity {
     private String[] mDrawerItems = {"Item 1", "Item 2", "Item 3"};
-    private String[] mDrawerFragmentId = {"com.mylu.main.FragmentOne", "com.mylu.main.EventAddActivity", ""};
+    private String[] mDrawerFragmentId = {"com.mylu.util.FragmentOne", "com.mylu.main.EventAddActivity", "com.mylu.main.EventListActivity"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +33,24 @@ public class MainActivity extends FragmentActivity {
         navList.setOnItemClickListener(new OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int pos,long id){
-                drawer.setDrawerListener( new DrawerLayout.SimpleDrawerListener(){
+                drawer.setDrawerListener(new DrawerLayout.SimpleDrawerListener(){
                     @Override
                     public void onDrawerClosed(View drawerView){
                         super.onDrawerClosed(drawerView);
-                        Intent intent = new Intent(getBaseContext(), EventAddActivity.class);
+                        Intent intent = null;
+                        switch (pos) {
+                            case 0:
+                                intent = new Intent(getBaseContext(), EventAddActivity.class);
+                                break;
+                            case 1:
+                                intent = new Intent(getBaseContext(), EventAddActivity.class);
+                                break;
+                            case 2:
+                                intent = new Intent(getBaseContext(), EventListActivity.class);
+                                break;
+                            default:
+
+                        }
                         startActivity(intent);
                         //FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
                         //tx.replace(R.id.content_frame, Fragment.instantiate(MainActivity.this, mDrawerFragmentId[pos]));
