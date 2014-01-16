@@ -7,22 +7,27 @@ import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
 /**
  * Created by Hansen on 1/14/14.
  */
-public class AddEvent extends FragmentActivity {
-    private String mEventName;
-    private String mEventDetails;
-    private String mEventLocation; // Very temporary if we can get location services from maps api
+public class EventAddActivity extends FragmentActivity implements JSONParser.JSONParserCallback{
+    //private String mEventName;
+    //private String mEventDetails;
+    //private String mEventLocation; // Very temporary if we can get location services from maps api
+    private EditText mEventName;
     private Spinner mDateSpinner;
     private Spinner mTimeSpinner;
 
@@ -30,6 +35,8 @@ public class AddEvent extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_event_item);
+
+        mEventName = (EditText) findViewById(R.id.editText_eventName);
 
         mDateSpinner = (Spinner) findViewById(R.id.spinner_date);
         mTimeSpinner = (Spinner) findViewById(R.id.spinner_time);
@@ -102,4 +109,29 @@ public class AddEvent extends FragmentActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_submit:
+                submitForm();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+    }
+
+    private void submitForm() {
+        JSONParser parser = new JSONParser();
+        String url = "http://mylu.herokuapp.com/api/v1/events?";
+        String title = mEventName.getText().toString();
+        parser.doInBackground(url);
+        //parser.getStringfromUrl()
+
+    }
+
+    @Override
+    public void showList(JSONObject result) {
+
+    }
 }

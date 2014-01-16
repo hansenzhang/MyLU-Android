@@ -41,9 +41,9 @@
                 android:value=".ItemListActivity" />
         </activity>
         <activity
-            android:name="com.mylu.main.AddEvent"
+            android:name=".EventAddActivity"
             android:label="@string/title_add_event"
-            android:parentActivityName=".AddEvent" >
+            android:parentActivityName=".EventAddActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />

@@ -18,7 +18,7 @@ import android.widget.ListView;
  */
 public class MainActivity extends FragmentActivity {
     private String[] mDrawerItems = {"Item 1", "Item 2", "Item 3"};
-    private String[] mDrawerFragmentId = {"com.mylu.main.FragmentOne", "com.mylu.main.AddEvent", ""};
+    private String[] mDrawerFragmentId = {"com.mylu.main.FragmentOne", "com.mylu.main.EventAddActivity", ""};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class MainActivity extends FragmentActivity {
                     @Override
                     public void onDrawerClosed(View drawerView){
                         super.onDrawerClosed(drawerView);
-                        Intent intent = new Intent(getBaseContext(), AddEvent.class);
+                        Intent intent = new Intent(getBaseContext(), EventAddActivity.class);
                         startActivity(intent);
                         //FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
                         //tx.replace(R.id.content_frame, Fragment.instantiate(MainActivity.this, mDrawerFragmentId[pos]));
