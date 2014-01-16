@@ -8,6 +8,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.mylu.main.dummy.DummyContent;
+import com.mylu.util.JSONParser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * A list fragment representing a list of Items. This fragment
@@ -18,7 +26,7 @@ import com.mylu.main.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link Callbacks}
  * interface.
  */
-public class ItemListFragment extends ListFragment {
+public class EventListFragment extends ListFragment implements JSONParser.JSONParserCallback {
 
     /**
      * The serialization (saved instance state) Bundle key representing the
@@ -36,6 +44,20 @@ public class ItemListFragment extends ListFragment {
      * The current activated item position. Only used on tablets.
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
+
+    /**
+     * Callback for JSON activity
+     * @param result
+     */
+    @Override
+    public void showList(JSONObject result) {
+        ArrayList<HashMap<String, String>> eventList = new ArrayList<HashMap<String, String>>();
+        try {
+            JSONArray events = result.getJSONArray("events");
+        } catch (JSONException e) {
+
+        }
+    }
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -63,13 +85,15 @@ public class ItemListFragment extends ListFragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public ItemListFragment() {
+    public EventListFragment() {
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        JSONParser parser = new JSONParser();
+        parser.execute("http://mylu.herokuapp.com/api/v1/events");
         // TODO: replace with a real list adapter.
         setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
                 getActivity(),
