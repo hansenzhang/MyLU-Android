@@ -89,7 +89,7 @@ public class EventAddActivity extends FragmentActivity implements JSONParser.JSO
     }
 
     private void submitForm() {
-        JSONParser parser = new JSONParser();
+        JSONParser parser = new JSONParser(this);
         String base = "http://mylu.herokuapp.com/api/v1/events?";
         //TODO: NUll check all of these fields, throw warnings somehow.
         String title = null;
@@ -106,7 +106,7 @@ public class EventAddActivity extends FragmentActivity implements JSONParser.JSO
         String email = "&authorEmail=temp@lehigh.edu";
         String date = "&startDate=" +  new DateTime(mYear, mMonth, mDay, mHour, mMinute).toDateTimeISO().toString();
         String url = base + title + location + author + email + date + description;
-        parser.execute(url); // Execute will run async
+        parser.execute(url, "POST"); // Execute will run async
         //parser.doInBackground(url);
     }
 

@@ -54,6 +54,7 @@ public class EventListFragment extends ListFragment implements JSONParser.JSONPa
      */
     @Override
     public void showList(JSONObject result) {
+        System.out.println("try to print the result");
         ArrayList<HashMap<String, Object>> eventList = new ArrayList<HashMap<String, Object>>();
         try {
             JSONArray events = result.getJSONArray("events");
@@ -73,8 +74,8 @@ public class EventListFragment extends ListFragment implements JSONParser.JSONPa
 
         ListAdapter adapter = new SimpleAdapter(getActivity(), eventList,
                 R.layout.event_item_list,
-                new String[] {},
-                new int[] {}
+                new String[] {"title", "startDate"},
+                new int[] {R.id.event_name, R.id.event_date}
                 );
         setListAdapter(adapter);
     }
@@ -112,14 +113,8 @@ public class EventListFragment extends ListFragment implements JSONParser.JSONPa
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        JSONParser parser = new JSONParser();
-        parser.execute("http://mylu.herokuapp.com/api/v1/events");
-        // TODO: replace with a real list adapter.
-        setListAdapter(new ArrayAdapter<DummyContent.DummyItem>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                DummyContent.ITEMS));
+        JSONParser parser = new JSONParser(this);
+        parser.execute("http://mylu.herokuapp.com/api/v1/events", "GET");
     }
 
     @Override

@@ -16,7 +16,7 @@ import android.widget.ListView;
 /**
  * Created by hansen on 1/6/14.
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements EventListFragment.Callbacks {
     private String[] mDrawerItems = {"Item 1", "Item 2", "Item 3"};
     private String[] mDrawerFragmentId = {"com.mylu.util.FragmentOne", "com.mylu.main.EventAddActivity", "com.mylu.main.EventListActivity"};
 
@@ -43,10 +43,10 @@ public class MainActivity extends FragmentActivity {
                                 intent = new Intent(getBaseContext(), EventAddActivity.class);
                                 break;
                             case 1:
-                                intent = new Intent(getBaseContext(), EventAddActivity.class);
+                                intent = new Intent(getBaseContext(), EventListActivity.class);
                                 break;
                             case 2:
-                                intent = new Intent(getBaseContext(), EventListActivity.class);
+                                intent = new Intent(getBaseContext(), ProfileActivity.class);
                                 break;
                             default:
 
@@ -62,7 +62,12 @@ public class MainActivity extends FragmentActivity {
         });
 
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        tx.replace(R.id.content_frame, Fragment.instantiate(MainActivity.this, mDrawerFragmentId[0]));
+        tx.replace(R.id.content_frame, Fragment.instantiate(MainActivity.this, "com.mylu.main.EventListFragment"));
         tx.commit();
+    }
+
+    @Override
+    public void onItemSelected(String id) {
+        //This should load the fragment once I have it working....
     }
 }

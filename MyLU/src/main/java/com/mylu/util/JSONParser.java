@@ -12,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
@@ -34,12 +35,6 @@ public class JSONParser extends AsyncTask <String, Void, JSONObject>
     static InputStream is = null;
     JSONObject jObj = null;
     static String json = "";
-
-    /*
-     * Default...
-     */
-    public JSONParser(){
-    }
 
     public String getStringfromUrl(String url) {
         try {
@@ -72,12 +67,17 @@ public class JSONParser extends AsyncTask <String, Void, JSONObject>
         return json;
     }
 
-    public JSONObject getJSONfromUrl(String url) {
+    public JSONObject postJSONfromUrl(String url, boolean isPost) {
         try {
             DefaultHttpClient httpClient = new DefaultHttpClient();
-            HttpPost httpPost = new HttpPost(url);
-
-            HttpResponse response = httpClient.execute(httpPost);
+            HttpResponse response = null;
+            if (isPost) {
+                HttpPost httpPost = new HttpPost(url);
+                response = httpClient.execute(httpPost);
+            } else {
+                HttpGet httpGet = new HttpGet(url);
+                response = httpClient.execute(httpGet);
+            }
             HttpEntity httpEntity = response.getEntity();
             is = httpEntity.getContent();
         } catch (UnsupportedEncodingException e) {
@@ -109,12 +109,17 @@ public class JSONParser extends AsyncTask <String, Void, JSONObject>
         return jObj;
     }
 
-
-
     @Override
     protected JSONObject doInBackground(String... params)
     {
-        return getJSONfromUrl(params[0]);
+        if (params[1] == "POST") {
+            return postJSONfromUrl(params[0], true);
+        } else if (params[1] == "GET")
+            return postJSONfromUrl(params[0], false);
+        else {
+            return null;  //TODO: fix this please...
+        }
+
     }
 
     @Override
