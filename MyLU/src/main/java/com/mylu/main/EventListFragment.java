@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -50,7 +49,7 @@ public class EventListFragment extends ListFragment implements JSONParser.JSONPa
 
     /**
      * Callback for JSON activity
-     * @param result
+     * @param result expected value of json list.
      */
     @Override
     public void showList(JSONObject result) {
@@ -69,7 +68,7 @@ public class EventListFragment extends ListFragment implements JSONParser.JSONPa
                 eventList.add(map);
             }
         } catch (JSONException e) {
-
+            e.printStackTrace();
         }
 
         ListAdapter adapter = new SimpleAdapter(getActivity(), eventList,

@@ -58,4 +58,12 @@
         style="?android:attr/spinnerStyle"/>
     </LinearLayout>
 
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText_eventCategories"
+        android:hint="Categories"
+        android:layout_weight="0.2"
+        />
 </LinearLayout>

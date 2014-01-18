@@ -38,6 +38,7 @@ public class EventAddActivity extends FragmentActivity implements JSONParser.JSO
     private EditText mEventName;
     private EditText mEventDetails;
     private EditText mEventLocation;
+    private EditText mEventCategories;
     private Button mDateSpinner;
     private Button mTimeSpinner;
     private int mYear;
@@ -54,6 +55,7 @@ public class EventAddActivity extends FragmentActivity implements JSONParser.JSO
         mEventName = (EditText) findViewById(R.id.editText_eventName);
         mEventDetails = (EditText) findViewById(R.id.editText_eventDetails);
         mEventLocation = (EditText) findViewById(R.id.editText_eventLocation);
+        mEventCategories = (EditText) findViewById(R.id.editText_eventCategories);
 
         mDateSpinner = (Button) findViewById(R.id.spinner_date);
         mTimeSpinner = (Button) findViewById(R.id.spinner_time);
@@ -95,23 +97,27 @@ public class EventAddActivity extends FragmentActivity implements JSONParser.JSO
         String title = null;
         String location = null;
         String description = null;
+        String categories = null;
         try {
             title = "title=" + URLEncoder.encode(mEventName.getText().toString(), "UTF-8");
             location = "&location=" + URLEncoder.encode(mEventLocation.getText().toString(), "UTF-8");
             description = "&description=" + URLEncoder.encode(mEventDetails.getText().toString(), "UTF-8");
+            categories = "&categories=" + URLEncoder.encode(mEventCategories.getText().toString(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
         String author = "&authorName=TempUser";
         String email = "&authorEmail=temp@lehigh.edu";
         String date = "&startDate=" +  new DateTime(mYear, mMonth, mDay, mHour, mMinute).toDateTimeISO().toString();
-        String url = base + title + location + author + email + date + description;
+        String url = base + title + location + author + email + date + description + categories;
         parser.execute(url, "POST"); // Execute will run async
         //parser.doInBackground(url);
     }
 
     @Override
     public void showList(JSONObject result) {
+        System.out.println(result.toString());
         //TODO: This should return success of POST and throw errors accordingly
     }
 
